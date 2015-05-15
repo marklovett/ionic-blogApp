@@ -18,7 +18,7 @@ angular.module('blogApp', ['ionic'])
   });
 })
 
-.service('myService', ['$http', function($http) {
+.service('myService', function($http) {
   this.getBlogs = function($scope) {
     $http.jsonp('https://public-api.wordpress.com/rest/v1/freshly-pressed?callback=JSON_CALLBACK')
       .success(function(result) {
@@ -26,7 +26,7 @@ angular.module('blogApp', ['ionic'])
           // $log.info(JSON.stringify(result.posts));
       });
   };
-}])
+})
 
 .controller('AppCtrl', function($scope, myService) {
   $scope.posts = [];
