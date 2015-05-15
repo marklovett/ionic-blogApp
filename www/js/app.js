@@ -28,12 +28,12 @@ angular.module('blogApp', ['ionic'])
   };
 }])
 
-.controller('AppCtrl', ['$scope', 'myService', AppCtrl])
-
-function AppCtrl($scope, myService) {
+.controller('AppCtrl', function($scope, myService) {
   $scope.posts = [];
   $scope.refresh = function() {
     myService.getBlogs($scope);
   }
-}
+})
+
+
 
