@@ -20,19 +20,22 @@ angular.module('blogApp', ['ionic'])
 
 .service('myService', function($http) {
   this.getBlogs = function($scope) {
-    $http.jsonp('https://public-api.wordpress.com/rest/v1/freshly-pressed?callback=JSON_CALLBACK')
-      .success(function(result) {
-        $scope.posts = result.posts;
-          // $log.info(JSON.stringify(result.posts));
+       
+      $http.get('http://marklovettphotography.com/wp-json/posts?results=10')
+      // $http.jsonp('https://public-api.wordpress.com/rest/v1/freshly-pressed?callback=JSON_CALLBACK')
+      .success(function(data) {
+        $scope.posts = data.posts;//move data to posts array
+        $scope.$broadcast('scroll.refreshComplete');//stops refresh wheel from spinning after loaded data
+        // $log.info(JSON.stringify(result.posts));
       });
   };
 })
 
 .controller('AppCtrl', function($scope, myService) {
-  $scope.posts = [];
-  $scope.refresh = function() {
-    myService.getBlogs($scope);
-  }
+    $scope.posts = []; //initialize post array
+    $scope.refresh = function() {
+      myService.getBlogs($scope); //now scope holds the data just need to render it now
+    }
 })
 
 

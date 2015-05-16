@@ -29,12 +29,15 @@
     <ion-pane>
       <ion-header-bar class="bar-positive">
         <h1 class="title">Ionic Blog App</h1>
-        <button class="button" ng-click="refresh()">
-          <i class="icon ion-refresh"></i>
-        </button>
       </ion-header-bar>
       <ion-content>
-
+     <!--  pull mouse down on screen to refresh -->
+        <ion-refresher on-refresh="refresh()"></ion-refresher>
+          <div ng-show="!posts.length"> <!-- means if (empty) array length is 0 dont display -->
+            <center>
+              <h2>Pull to Refresh</h2>
+            </center>
+          </div> 
         <div class="card list" ng-repeat="p in posts">
             <div class="item item-avatar-left">
               <img ng-src="{{ p.author.avatar_URL }}" alt="" class="src">
@@ -43,6 +46,8 @@
             </div>
             <div class="item item-body">
               <h1>{{ p.title }}</h1>
+              
+              <!-- displays as html content-->
               <div ng-bind-html="p.content"></div>
             </div>
           </div> 
